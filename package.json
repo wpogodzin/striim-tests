@@ -1,0 +1,19 @@
+{
+  "name": "striim-tests",
+  "version": "1.0.0",
+  "description": "tests(folder e2e) for developer.striim.com based on POM.js(folder pages) and config.js(folder config)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "V.P. Corp.",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.6.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/mocha": "^10.0.6"
+  }
+}
