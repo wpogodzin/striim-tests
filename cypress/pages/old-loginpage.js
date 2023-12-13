@@ -1,7 +1,7 @@
-// POM(Page Object Module) for testing developer.striim.com
+// LoginPage(Page Object Module) for testing developer.striim.com
 import {testData,urlData} from '../config/config'
  
-class POM {
+class LoginPage {
  
   // Elements for methods
 
@@ -18,12 +18,17 @@ class POM {
           return true;
         }),
 
+    //Elements to visit neccessary page and get login form
+
     visitPage : (url) => cy.visit(url),
 
     expectLoginForm(timeout) {
       cy.get('.card-content',{timeout}).should('be.visible')
     },
     
+
+    //Elements to work with login form elements)))
+
     isVisibleUsername : () => cy.get('input[name="username"]')
                                 .should('have.attr', 'type', 'text'),
 
@@ -41,6 +46,8 @@ class POM {
                                   .type(password),
 
     clickLogin : () => cy.get('button[type="submit"]').click(),
+
+    //Next actions after correct/invalid filling the login form
 
     checkURL : (url) => cy.url().should('eq', url),
 
@@ -87,7 +94,11 @@ password is incorrect, or is deactivated').should('be.visible')
     this.elements.checkErrorMessage()
   }
 
+  findLogoutButtonAndClick(){
+    cy.log('here should be log out fragment')
+  }
+
 }
 
-export default new POM()
+export default LoginPage
  
