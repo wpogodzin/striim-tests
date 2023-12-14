@@ -60,8 +60,13 @@ class LoginPage {
     cy.get('input[name="password"]').type(password);
   }
 
-  checkErrorMessage() {
+  checkErrorMessageAboutIncorrectCredentials() {
     cy.contains('User does not exist, password is incorrect, or is deactivated')
+      .should('be.visible');
+  }
+
+  checkErrorMessageAboutNotFillingOutAllFields() {
+    cy.contains('Please make sure you have filled out all the fields.')
       .should('be.visible');
   }
 
