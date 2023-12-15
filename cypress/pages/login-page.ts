@@ -19,7 +19,7 @@ class LoginPage {
   }
 
   visitLoginPage() {
-    cy.visit(urlData.urlLoginPage);
+    cy.visit(urlData.urlInitial);
   }
 
   expectLoginForm() {
@@ -72,7 +72,20 @@ class LoginPage {
 
   stillLoginPage() {
     cy.url().should('eq', urlData.urlLoginPage );
+  } 
+
+  stillLoginPageHash() {
+    cy.url().should('eq', urlData.urlLoginPageHash );
+  } 
+
+  findLogoutButtonAndClick() {
+    // Firstly put mouse over rightest icon with portrait inside
+    cy.get('header div[data-testid="striim-dropdown-children"] button')
+      .eq(2).trigger('mouseover') 
+    // Secondly find 'Logout' and click   
+    cy.contains('Logout').should('be.visible').click()
   }
 
 }
+
 export default LoginPage;

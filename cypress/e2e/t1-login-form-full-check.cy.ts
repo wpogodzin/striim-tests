@@ -1,19 +1,17 @@
 // t1-login-form-full-check.cy - test initially
 
 import LoginPage from '../pages/login-page'
-import ApplicationListPage from '../pages/application-list-page'
-
-
+import LandingPage from '../pages/landing-page'
 
 describe('Login form full check', () => {
 
   let myLoginPage // Declare myLoginPage outside beforeEach 
-  let myApplicationListPage // Declare myApplicationListPage outside beforeEach 
+  let myLandingPage // Declare myLandingPage outside beforeEach 
     
   beforeEach(() => {
     
-     myLoginPage = new LoginPage()
-myApplicationListPage = new ApplicationListPage()
+    myLoginPage = new LoginPage()
+    myLandingPage = new LandingPage()
     
 
     // Visit the login page and expect login form for about 20 sec
@@ -22,7 +20,7 @@ myApplicationListPage = new ApplicationListPage()
 
   }) 
 
-    it('1-fields and button of the form should have properties', () => {
+    it('1)-fields and button of the form should have properties', () => {
 
       myLoginPage.isVisibleUsername()
       myLoginPage.isInvisiblePassword()
@@ -30,7 +28,7 @@ myApplicationListPage = new ApplicationListPage()
 
     }) 
 
-    it('2-should validate login with correct credentials and\
+    it('2)-should validate login with correct credentials and\
         redirected to landing page', () => {
 
       // Mistake handling when automatically testing(only) 
@@ -40,10 +38,10 @@ myApplicationListPage = new ApplicationListPage()
       myLoginPage.setCorrectLoginAndPassword()
       myLoginPage.clickLogin()
       // Check that site was redirected to landing page if no apps yet
-	    myApplicationListPage.isLoadingPageUrl();
+	    myLandingPage.isLandingPageUrl();
     }) 
 
-    it('3-should show error message if invalid credentials\
+    it('3)-should show error message if invalid credentials\
         and stay still on login page', () => {
 
       // Invalid login and password
@@ -56,7 +54,7 @@ myApplicationListPage = new ApplicationListPage()
 
     })
 
-    it('4-should show error message if username is empty ', () => {
+    it('4)-should show error message if username is empty ', () => {
 
       // 1 variant: password is not typed
       myLoginPage.fillUsername('aaa')        // only name is typed
@@ -67,7 +65,7 @@ myApplicationListPage = new ApplicationListPage()
 
     })
     
-    it('5-should show error message if password is empty ', () => {
+    it('5)-should show error message if password is empty ', () => {
 
       // 2 variant: name is not typed
       myLoginPage.fillPassword('bbb')        // only password is typed
@@ -77,14 +75,14 @@ myApplicationListPage = new ApplicationListPage()
       myLoginPage.stillLoginPage() 
     })
 
-    it('6-should show error message if username and password are empty ', () => {
+    it('6)-should show error message if username and password are empty ', () => {
 
-      // 3 variant: username & password are not typed 
+      // 3 variant: both username & password are not typed 
       myLoginPage.clickLogin()
       myLoginPage.checkErrorMessageAboutNotFillingOutAllFields()
       // Validate that still on login page
-      myLoginPage.stillLoginPage() 
-
+      myLoginPage.stillLoginPage()
+      myLoginPage.expectLoginForm() 
     })
 
 })

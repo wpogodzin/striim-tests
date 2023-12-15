@@ -10,4 +10,18 @@ commits:
   - t1-login-form-full-check.cy.ts uses methods of those above mentioned 2 page modules and became more informative.
   - config.js - some data has been deleted
  
-  
+5. 14.12.23 - loginPage.js:  method      checkErrorMessageAboutNotFillingOutAllFields() is added  
+            - t1-login-form-full-check.cy.ts - 3 tests using  checkErrorMessageAboutNotFillingOutAllFields() are added
+
+6. 15.12.23 - application-list-page.ts is renamed to landing-page.ts
+            - test t2-right-login-logout.cy.ts is added
+            - login-page.js is renamed to login-page.ts
+            - login-page.ts : methods findLogoutButtonAndClick() and
+              stillLoginPageHash() are added
+            - landing-page.js is renamed to landing-page.ts
+            - landing-page.ts class ApplicationList is renamed to LandingPage
+            - t1-login-form-full-check.cy.ts  - changes connected with renaming
+              AppliacationListPage to LandingPage
+            - t2-right-login-logout.cy.ts - new test
+            
+                        
