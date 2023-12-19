@@ -13,8 +13,7 @@ describe('Right login and logout', () => {
     myLoginPage = new LoginPage()
     myLandingPage = new LandingPage
     ()
-    
-
+  
     // Visit the login page and expect login form for about 20 sec
     myLoginPage.visitLoginPage()
     myLoginPage.expectLoginForm() 

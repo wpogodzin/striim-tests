@@ -13,15 +13,14 @@ commits:
 5. 14.12.23 - loginPage.js:  method      checkErrorMessageAboutNotFillingOutAllFields() is added  
             - t1-login-form-full-check.cy.ts - 3 tests using  checkErrorMessageAboutNotFillingOutAllFields() are added
 
-6. 15.12.23 - application-list-page.ts is renamed to landing-page.ts
-            - test t2-right-login-logout.cy.ts is added
+6. 15.12.23 - application-list-page.js is renamed to landing-page.js
+            - landing-page.js is renamed to landing-page.ts
+            - landing-page.ts class ApplicationList is renamed to LandingPage
             - login-page.js is renamed to login-page.ts
             - login-page.ts : methods findLogoutButtonAndClick() and
               stillLoginPageHash() are added
-            - landing-page.js is renamed to landing-page.ts
-            - landing-page.ts class ApplicationList is renamed to LandingPage
+            - new test t2-right-login-logout.cy.ts is added
             - t1-login-form-full-check.cy.ts  - changes connected with renaming
               AppliacationListPage to LandingPage
-            - t2-right-login-logout.cy.ts - new test
             
                         

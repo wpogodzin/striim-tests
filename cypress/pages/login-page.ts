@@ -71,11 +71,11 @@ class LoginPage {
   }
 
   stillLoginPage() {
-    cy.url().should('eq', urlData.urlLoginPage );
+    cy.url().should('eq', urlData.urlLoginPage )
   } 
 
   stillLoginPageHash() {
-    cy.url().should('eq', urlData.urlLoginPageHash );
+    cy.url().should('eq', urlData.urlLoginPageHash)
   } 
 
   findLogoutButtonAndClick() {

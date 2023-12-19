@@ -3,7 +3,8 @@
 const testData = {
   correctUsername: 'Vitaliy123',
   correctPassword: 'Striim123',
-  timeOutLoginForm: 30000
+  timeOutLoginForm: 30000,
+  newAppName: 'qqqq'
 }
 
 
@@ -19,9 +20,16 @@ const urlData = {
   'https://developer.striim.com/#', 
 
   urlLandingPage: 
-  'https://developer.striim.com/#landing', 
+  'https://developer.striim.com/#landing',
+  
+  urlCreateAppPage: 
+  'https://developer.striim.com/#create-app',
 
- 
+  urlSlashNameAppPage:
+  'https://developer.striim.com/#create-app/name-app',
+
+  urlFlowPage:
+  `https://developer.striim.com/#flow/${testData.correctUsername}.${testData.newAppName}`
 
 }
 
