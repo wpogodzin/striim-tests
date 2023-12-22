@@ -1,8 +1,17 @@
 // FlowPage(Page Object Module) for testing developer.striim.com
 
 import { testData, urlData } from '../config/config';
+import MainMenu from '../pages/components/main-menu'
 
 class FlowPage {
+
+  // Declare myMainMenu as a property of the class
+  myMainMenu;
+
+  // Constructor to make instance myMainMenu when FlowPage is created
+  constructor() {
+    this.myMainMenu = new MainMenu()
+  }  
 
   ///////    Methods ///////
 
@@ -23,18 +32,6 @@ class FlowPage {
         cy.get(' h6[data-test-id="toast-description"]').should('be.visible')
           .contains('Application qqqq created successfully.')
       }) 
-  }
-
-  // Trigger mouseover on the "Apps" dropdown to reveal the menu
-  mouseOverAppsDropdown(){
-    cy.get('[data-testid="striim-dropdown-children"] li:contains("Apps")')
-      .should('exist')
-      .trigger('mouseover')
-  }
-
-  // Use cy.contains to find and click "View All Apps"
-  findAndClickViewAllApps(){
-    cy.contains('View All Apps').should('exist').click()
   }
   
 }

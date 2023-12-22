@@ -74,20 +74,20 @@ describe('Create new app and delete', () => {
 
 
       //// FlowPage
+      
       //Check URL for work with new app :Url is OK, but picture is different
       myFlowPage.isFlowPageUrl()
     
       // Check for the success message after creating the application
-      myFlowPage.isMessageAboutCreatedAppVisible() 
+      myFlowPage.isMessageAboutCreatedAppVisible()  
+
+      // Instead 'myFlowPage.mouseOverAppsDropdown()' and 
+      // 'myFlowPage.findAndClickViewAllApps()' we use 'myFlowPage.myMainMenu.viewAllApps()'
+      myFlowPage.myMainMenu.viewAllApps()
+
+
+      //// ApplicationsPage
       
-      // Trigger mouseover on the "Apps" dropdown to reveal the menu
-      myFlowPage.mouseOverAppsDropdown()
-
-      // Use cy.contains to find and click "View All Apps"
-      myFlowPage.findAndClickViewAllApps()
-
-
-      //// FlowPage
       // Check if the URL is correct after clicking "View All Apps"
       myApplicationsPage.isApplicationsPageUrl()
 

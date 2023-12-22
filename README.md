@@ -22,5 +22,12 @@ commits:
             - new test t2-right-login-logout.cy.ts is added
             - t1-login-form-full-check.cy.ts  - changes connected with renaming
               AppliacationListPage to LandingPage
+7. 19.12.23 - t3-create-delete-app.cy is created
+            - flow-page.ts,create-app-pages.ts,applications-page.ts are added
+            - replacing 'Vitaliy123' on `${testData.correctUsername}` everywhere
+              (for other  variables is the same)
+
+8. 22.12.23 - creating special main-menu.ts with Class Main Menu(and methods) _             which can be used by other pages(flow-page ...)                  
+
             
                         
