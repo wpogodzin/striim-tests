@@ -1,16 +1,16 @@
 // FlowPage(Page Object Module) for testing developer.striim.com
 
 import { testData, urlData } from '../config/config';
-import MainMenu from '../pages/components/main-menu'
+import NavigationBarMenu from '../pages/components/navigation-bar-menu'
 
 class FlowPage {
 
   // Declare myMainMenu as a property of the class
-  myMainMenu;
+  myNavigationBarMenu
 
   // Constructor to make instance myMainMenu when FlowPage is created
   constructor() {
-    this.myMainMenu = new MainMenu()
+    this.myNavigationBarMenu = new NavigationBarMenu()
   }  
 
   ///////    Methods ///////

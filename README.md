@@ -27,7 +27,9 @@ commits:
             - replacing 'Vitaliy123' on `${testData.correctUsername}` everywhere
               (for other  variables is the same)
 
-8. 22.12.23 - creating special main-menu.ts with Class Main Menu(and methods) _             which can be used by other pages(flow-page ...)                  
+8. 22.12.23 - creating special main-menu.ts with Class Main Menu(and methods) _             which can be used by other pages(flow-page ...) 
+9. 27.12.23 - new: t6-manage-striim-vaults, vaults page
+            -rename in pages/components:     main-menu to   navigation-bar-menu           
 
             
                         

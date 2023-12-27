@@ -4,7 +4,10 @@ const testData = {
   correctUsername: 'Vitaliy123',
   correctPassword: 'Striim123',
   timeOutLoginForm: 30000,
-  newAppName: 'qqqq'
+  newAppName: 'qqqq',
+  vaultName: 'Vaultname123',
+  vaultKey: 'Vaultkey123',
+  vaultValue: 'Vaultvalue123'
 }
 
 
@@ -29,7 +32,10 @@ const urlData = {
   'https://developer.striim.com/#create-app/name-app',
 
   urlFlowPage:
-  `https://developer.striim.com/#flow/${testData.correctUsername}.${testData.newAppName}`
+  `https://developer.striim.com/#flow/${testData.correctUsername}.${testData.newAppName}`,
+
+  urlVaultsPage:
+  'https://developer.striim.com/#manage-striim/vaults'
 
 }
 

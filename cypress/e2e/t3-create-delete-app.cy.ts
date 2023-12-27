@@ -83,11 +83,11 @@ describe('Create new app and delete', () => {
 
       // Instead 'myFlowPage.mouseOverAppsDropdown()' and 
       // 'myFlowPage.findAndClickViewAllApps()' we use 'myFlowPage.myMainMenu.viewAllApps()'
-      myFlowPage.myMainMenu.viewAllApps()
+      myFlowPage.myNavigationBarMenu.mouseoverAppsAndViewAllApps()
 
 
       //// ApplicationsPage
-      
+
       // Check if the URL is correct after clicking "View All Apps"
       myApplicationsPage.isApplicationsPageUrl()
 
@@ -111,7 +111,7 @@ describe('Create new app and delete', () => {
     })
 
 })
-///////////////
+
 
 
 
