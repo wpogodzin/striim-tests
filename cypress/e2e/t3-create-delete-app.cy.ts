@@ -51,6 +51,7 @@ describe('Create new app and delete', () => {
       
       // Click  button to create new app 
       myLandingPage.clickButtonCreateAnApp()
+    
 
 
       //// CreateAppPage

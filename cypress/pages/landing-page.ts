@@ -5,8 +5,9 @@ import NavigationBarMenu from '../pages/components/navigation-bar-menu'
 
 class LandingPage {
 
-  // Declare myMainMenu as a property of the class
-  myNavigationBarMenu
+  // Declare myNavigationBarMenu as a property of the class
+  //adding ': NavigationBarMenu' is better in the very beginning
+  myNavigationBarMenu: NavigationBarMenu 
 
   // Constructor to make instance myMainMenu when LandingPage is created
   constructor() {

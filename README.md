@@ -29,7 +29,26 @@ commits:
 
 8. 22.12.23 - creating special main-menu.ts with Class Main Menu(and methods) _             which can be used by other pages(flow-page ...) 
 9. 27.12.23 - new: t6-manage-striim-vaults, vaults page
-            -rename in pages/components:     main-menu to   navigation-bar-menu           
+            -rename in pages/components:     main-menu to   navigation-bar-menu  
+10. 2.01.24 - What is done?:
+            -avoiding using indices,          standartization of rules for names  and methods
+            - splitting Add Vault Value on 2 methods
+            - navigation Bar Menu - method clickMenuItem instead of previous two(Grzegorz variant is better)   
+            - where it needs I add parameters to call f.ex. function  Add...(Vaultname)
+            - new functions are created to read,edit and delete Vault value where important:
+            1.parameters and 2. right getting of elements for reading,updating and deleting
+            - creating 2 files: new test t7 with big scenario and config-t7 for a big test 
+To do now: test t7            
+To do later: 1.AssertUrl 
+             2.Cypress.Commands.add('login', () => {
+  myLoginPage.mistakeHandlingWhenValidateLoginWithCorrectCredentials();
+  myLoginPage.setCorrectLoginAndPassword();
+  myLoginPage.clickLogin();
+  myLandingPage.isLandingPageUrl();
+  myLandingPage.isGreetingWelcomeUserVisible();
+}); 
+      3.Navigation Menu Bar(Grzegorz variant) 
+      4.Splitting Create vault value  on small methods         
 
             
                         

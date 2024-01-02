@@ -22,7 +22,7 @@ class VaultsPage {
   }
 
   //// Click  button to add vault if no vaults yet
-  clickButtonAddVault() {
+  clickButtonAddVaultIfNoVaults() {
 
     cy.get('button[data-testid="striim-button"]')
       .contains('Add Vault')
@@ -31,7 +31,7 @@ class VaultsPage {
   }
 
   //// Filling out the table 'Add Vault'
-  enterVaultNameForStriimVaultType(){
+  enterVaultNameForStriimVaultType(vaultname){
 
     // Check if 'Add Vault' desk is visible
     cy.get('div[data-testid="striim-dialog-paper"]')
@@ -41,8 +41,7 @@ class VaultsPage {
       .contains('p','Vault Type').should('be.visible')
     // Check if STRIIMVAULT type is chosen by DEFAULT      
     cy.get('div[data-testid="striim-dialog-content"]')
-      .find('fieldset label')
-      .eq(0)
+      .find('fieldset')
       // consruction '.should(($label)'  allows to validate many events
       .should(($label) => {
         // Check the input element within the label
@@ -51,16 +50,24 @@ class VaultsPage {
           .to.have.attr('value', 'STRIIMDEFAULTVAULT')
       });
     // Type Vault name
-    cy.get('form').find('input[name="name"]').type(testData.vaultName)
+    cy.get('form').find('input[name="name"]').type(vaultname)
+
+  }
+
+
+  enterCorrectUsernameAndConfirmVaultnameCreating(){
+
     // Set correct Username
     // 1.click button to get line with Username
     cy.get('form').find('button[type="button"]').click()
     // 2.click line with Username
-    .then(() =>(cy.get('div[id="react-select-2-option-0"]').contains(testData.correctUsername).should('be.visible').click()))
+    .then(() =>(cy.get('div[id="react-select-2-option-0"]')
+                  .contains(testData.correctUsername)
+                  .should('be.visible').click()))
     // Click Confirm button 
     cy.get('button[type="button"][data-test-id="vaults-add-vault-confirm-button"]').click()
     // Text 'Success' must appear - Vault name is created
-    cy.contains('Success') //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!- make better
+    cy.contains('Vault saved successfully') //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!- make better
     //cy.log([['Vitaliy123.Vaultname123.Vaultkey123']])
 
   }
@@ -68,7 +75,14 @@ class VaultsPage {
   //// Is there name 'Vaults' over the table 
   isDeskVaultsVisible(){
 
-    cy.get('h2').contains('Vaults').should('be.visible')  // !!!!!!!!!!!!!!!!
+    cy.get('h2').contains('Vaults').should('be.visible')  
+
+  }
+  // Next Vault name(not first !!!)
+  clickButtonAddVaultToCreateNextVault(){
+    cy.get('button[data-testid="striim-button"]')
+      .contains('Add vault')
+      .should('be.visible').click()
 
   }
   
@@ -80,20 +94,17 @@ class VaultsPage {
   }
 
   //// Filling out the table 'Vaults'  
-  CreatingVaultValue(){
+  creatingVaultValue(vaultname,vaultkey,vaultvalue){
 
     // Typing Vault key
-    cy.get('div[data-test-id="vault"] td')
-      .eq(0)
-      .find('input[type="text"]')
-      .type(testData.vaultKey)
+    cy.get('input[id="data-test-id-vault-key"][type="text"]')
+      .type(vaultkey)
     // Choosing Vault value type
     // 1.click button to get line with String type
-    cy.get('div[data-test-id="vault"] td')
-      .eq(1)
+    cy.get('div[data-test-id="autocomplete-select"][id="data-test-id-vault-value-type"]')
       .find('button[type="button"]')
-      .eq(1).
-      click()
+      .eq(1)
+      .click()
         // 2.click line with Username
         .then(() => (
           cy.get('div[id="react-select-4-option-0"]')
@@ -102,34 +113,77 @@ class VaultsPage {
           .click())
         )
     // Typing Vault value      
-    cy.get('td')
-      .eq(2)
-      .find('input[id="data-test-id-vault-value"][type="password"]')
-      .type(testData.vaultValue)
+    cy.get('input[id="data-test-id-vault-value"][type="password"]')
+      .type(vaultvalue)
+    // Vault Usage
+    cy.get('tbody')
+      .find('td')
+      .eq(3)
+      .should('have.text',`[[${testData.correctUsername}.${vaultname}.${vaultkey}]]`)      
     // Saving information
-    cy.get('td')
-      .eq(4)
-      .find('button[data-test-id="vault-value-save-button"]')
-      .find('span')
-      .eq(0)
+    cy.get('button[data-test-id="vault-value-save-button"]')
       .contains('Save')
       .click()
-    // Message about successful record about Vault data
-    cy.contains('Success') //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!- make better
+    // Message about successful  Vault data record
+    cy.contains('Vault value successfully saved') 
+
+  }
+
+  // Reading 'Vault value' by Vaultname1 and Vaultkey1
+  readingVaultValue(vaultname,vaultkey){
+
+    // Use cy.get to select the input element by its ID
+    cy.get('#data-test-id-vault-value').invoke('val').then((inputValue) => {
+    // Log the value to the Cypress command log
+    cy.log(`Value of the input field: ${inputValue}`)
+
+      })
+  }
+  
+
+  // Editing 'Vault value' by Vaultname1 and Vaultkey1
+  editingVaultValue(vaultname,vaultkey,newvaultvalue){
+
+    // Find button Edit
+    cy.get('button[data-test-id="edit-vault-value-button"]')
+      .contains('Edit')
+      .click()
+
+    // Typing New vault value      
+    cy.get('input[id="data-test-id-vault-value"][type="password"]')
+      .clear()
+      .type(newvaultvalue)
+
+    // Saving information
+    cy.get('button[data-test-id="vault-value-save-button"]')
+      .contains('Save')
+      .click()
+
+    // Message about successful  Vault data record
+    cy.contains('Vault value successfully saved')    
+
+  }
+
+  // Deleting 'Vault value' by Vaultname1 and Vaultkey1
+  deletingVaultValue(vaultname,vaultkey){
+
+    cy.get('span[data-test-id="vaults-delete-vault-value-button"] button')
+      .contains('Delete')
+      .click();
 
   }
 
   //// Delete Vault(name)
-  deleteVault(){
+  deleteVault(vaultname){
 
-  // Find button (right side) for this Vault name to get features and click
-  cy.get('button[type="button"][data-test-id="Vaultname123-menu"]').click()
-  // Choose feature 'Delete' and click
-  .then(() =>(cy.contains('Delete').should('be.visible').click()))
-  // Cofirm deleting
-  .then(() =>(cy.get('button[type="button"][data-test-id="vaults-delete-vault-button-confirm"]').click()))
-  // Validate appearence of success deleting message
-  .then(() => cy.contains(`Vault ${testData.vaultName} deleted successfully`)) // !!!!!!!!!!!!!!!!!!
+    // Find button (right side) for this Vault name to get features and click
+    cy.get(`button[type="button"][data-test-id="${vaultname}-menu"]`).click()
+    // Choose feature 'Delete' and click
+    .then(() =>(cy.contains('Delete').should('be.visible').click()))
+    // Cofirm deleting
+    .then(() =>(cy.get('button[type="button"][data-test-id="vaults-delete-vault-button-confirm"]').click()))
+    // Validate appearence of success deleting message
+    .then(() => cy.contains(`Vault ${vaultname} deleted successfully`)) 
 
   } 
 
