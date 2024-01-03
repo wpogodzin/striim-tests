@@ -49,6 +49,10 @@ To do later: 1.AssertUrl
 }); 
       3.Navigation Menu Bar(Grzegorz variant) 
       4.Splitting Create vault value  on small methods         
-
+    3.01.24 - t7 - scheme: - creating Vault name a
+                           - creating Vault name b
+                           - in b creating vault value 
+                           - other actions with vault value(RUD)
+                           - deleting Vault names a,b
             
                         

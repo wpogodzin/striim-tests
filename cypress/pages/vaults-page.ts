@@ -1,6 +1,7 @@
 // VaultsPage(Page Object Module) for testing developer.striim.com
+// 3 BAD
 
-import { testData, urlData } from '../config/config'
+import { testData, urlData } from '../config/config-t7'
 
 class VaultsPage {
 
@@ -61,9 +62,11 @@ class VaultsPage {
     // 1.click button to get line with Username
     cy.get('form').find('button[type="button"]').click()
     // 2.click line with Username
-    .then(() =>(cy.get('div[id="react-select-2-option-0"]')
+    //!!!!!!!!!! - problem
+    .then(() =>(cy.get('div[class=" css-d7l1ni-option"]')///////// BAD1!!!!!!!!  //1.[id="react-select-2-option-0"] 2.<div class=" css-d7l1ni-option" aria-disabled="false" id="react-select-2-option-0" tabindex="-1">Vitaliy123</div>
                   .contains(testData.correctUsername)
-                  .should('be.visible').click()))
+                  .should('be.visible')
+                  .click()))
     // Click Confirm button 
     cy.get('button[type="button"][data-test-id="vaults-add-vault-confirm-button"]').click()
     // Text 'Success' must appear - Vault name is created
@@ -87,10 +90,17 @@ class VaultsPage {
   }
   
   //// Click Button to start illing out the table 'Vaults' 
-  clickAddVaultValueButtonToStartCreatingVaultValue(){
+  clickAddVaultValueButtonToStartCreatingVaultValue(vaultname){
 
     cy.wait(3000)  //i don't like this
-    cy.get('button[type="button"][data-test-id="add-vault-link"]').click()
+    /*cy.get('div[data-test-id="collapsible-container-header"] span[data-test-id="vault-value-collapsible-label"]:contains("B_name0")')
+      .parent('div')
+      .find('button[data-test-id="add-vault-link"]')//:contains("Add vault value")
+      .click();
+
+    //cy.get(`div[data-test-id="collapsible-container-header"] span[data-test-id="vault-value-collapsible-label"]:contains("${vaultname}")`)
+    //  .find('button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")').click()*/
+    cy.get('button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")').eq(1).click()  ///////// Bad2 !!!!!!!
   }
 
   //// Filling out the table 'Vaults'  
@@ -107,7 +117,7 @@ class VaultsPage {
       .click()
         // 2.click line with Username
         .then(() => (
-          cy.get('div[id="react-select-4-option-0"]')
+          cy.get('div[class=" css-d7l1ni-option"]')//[id="react-select-4-option-0"]   /////////// Bad3 !!!!!!!
           .contains('STRING')
           .should('be.visible')
           .click())

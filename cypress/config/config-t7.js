@@ -6,15 +6,16 @@ const testData = {
   timeOutLoginForm: 30000,
   newAppName: 'qqqq',
 
-  aName0: 'A_name0', //Name(section) vault A(empty)
+  aName0: 'A_name0', //Name(section) vault A_name0(empty)
 
-  bName0: 'B_name0', //Name(section) vault B(2 values)
+  bName0: 'B_name0', //Name(section) vault B_name0(2 values)
   bKey0: 'B_key0',
   bValue00: 'B_value00',
+  bValue00new: 'B_value00new',
   bKey1: 'B_key1',
   bVault01: 'B_value01',
 
-  cName0: 'C_name0', //Name(section) vault C(3 values)
+  cName0: 'C_name0', //Name(section) vault C_name0(3 values)
   cKey0: 'C_key0',
   cValue00: 'C_value00',
   cKey1: 'C_key1',
