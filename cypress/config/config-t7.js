@@ -13,7 +13,9 @@ const testData = {
   bValue00: 'B_value00',
   bValue00new: 'B_value00new',
   bKey1: 'B_key1',
-  bVault01: 'B_value01',
+  bValue01: 'B_value01',
+  bValue01new: 'B_value01new',
+
 
   cName0: 'C_name0', //Name(section) vault C_name0(3 values)
   cKey0: 'C_key0',

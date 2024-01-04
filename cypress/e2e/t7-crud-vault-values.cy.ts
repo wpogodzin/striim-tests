@@ -52,7 +52,7 @@ describe('t6-manage-striim-vaults', () => {
       // Welcome greeting if no vaults
       myVaultsPage.isGreetingAddYourFirstVaultVisible()
 
-      //// Creating first Vault name(without Vault value)
+      //// Creating  Vault name A(without Vault value)
       // Click button 'Add vault'(name)
       myVaultsPage.clickButtonAddVaultIfNoVaults() 
       // Creating Vault name in 'Add Vault' table 
@@ -62,7 +62,7 @@ describe('t6-manage-striim-vaults', () => {
       // Desk 'Vaults' must appear
       myVaultsPage.isDeskVaultsVisible()
 
-      //// Creating second Vault name
+      //// Creating  Vault name B
       // Click button 'Add vault'(name) to create next vault
       myVaultsPage.clickButtonAddVaultToCreateNextVault()
       // Creating Vault name in 'Add Vault' table 
@@ -70,19 +70,36 @@ describe('t6-manage-striim-vaults', () => {
       // Clicking 'Confirm' button to Create Vault name
       myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating()
      
-      //// Creating first Vault value of second Vault name
+      //// Creating 0 Vault value of  Vault name B
       // Click 'Add vault value' button (right side) to start creating Vault value
       myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(testData.bName0)
       // Creating 'Vault value' means filling out all fields in Vaults table
       myVaultsPage.creatingVaultValue(testData.bName0,testData.bKey0,testData.bValue00)
 
-      //// Manipulation with first Vault value of second Vault name
+      //// Creating first Vault value of  Vault name B
+      // Click 'Add vault value' button (right side) to start creating Vault value
+      myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(testData.bName0)
+      // Creating 'Vault value' means filling out all fields in Vaults table
+      myVaultsPage.creatingVaultValue(testData.bName0,testData.bKey1,testData.bValue01)
+
+      //// Manipulation with 1 Vault value of  Vault name B
+      // Reading 'Vault value' with bName0 and bKey0
+      myVaultsPage.readingVaultValue(testData.correctUsername,testData.bName0,testData.bKey1)
+      // Editing 'Vault value' with bName0 and bKey1
+      myVaultsPage.editingVaultValue(testData.correctUsername,testData.bName0,testData.bKey1,testData.bValue01new)
+
+      /*
+      //// Manipulation with 0 Vault value of  Vault name B
       // Reading 'Vault value' with bName0 and bKey0
       myVaultsPage.readingVaultValue(testData.bName0,testData.bKey0)
       // Editing 'Vault value' with bName0 and bKey0
       myVaultsPage.editingVaultValue(testData.bName0,testData.bKey0,testData.bValue00new)
+      */
       // Deleting 'Vault value' with bName0 and bKey0
-      myVaultsPage.deletingVaultValue(testData.bName0,testData.bKey0)
+      myVaultsPage.deletingVaultValue(testData.correctUsername,testData.bName0,testData.bKey0)
+      
+
+      
 
      
       // Delete Vault(name) with aName0
@@ -93,7 +110,7 @@ describe('t6-manage-striim-vaults', () => {
 
       // Welcome greeting if no vaults
       myVaultsPage.isGreetingAddYourFirstVaultVisible()
-
+    
     })
     
 })

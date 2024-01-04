@@ -105,7 +105,7 @@ class VaultsPage {
 
   //// Filling out the table 'Vaults'  
   creatingVaultValue(vaultname,vaultkey,vaultvalue){
-
+   
     // Typing Vault key
     cy.get('input[id="data-test-id-vault-key"][type="text"]')
       .type(vaultkey)
@@ -138,48 +138,91 @@ class VaultsPage {
     cy.contains('Vault value successfully saved') 
 
   }
-
-  // Reading 'Vault value' by Vaultname1 and Vaultkey1
-  readingVaultValue(vaultname,vaultkey){
-
-    // Use cy.get to select the input element by its ID
-    cy.get('#data-test-id-vault-value').invoke('val').then((inputValue) => {
-    // Log the value to the Cypress command log
-    cy.log(`Value of the input field: ${inputValue}`)
-
-      })
-  }
   
+  // Reading 'Vault value'
+  readingVaultValue(namespace,vaultname,vaultkey){
 
-  // Editing 'Vault value' by Vaultname1 and Vaultkey1
-  editingVaultValue(vaultname,vaultkey,newvaultvalue){
+    const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
 
+    cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
+      .contains('td:nth-child(4)', vaultUsageKey)  // in the fourth column
+      .parent()                                    // Navigate to the parent row
+      .find('input[id="data-test-id-vault-value"][type="password"]') 
+      // It's better than .find('td:nth-child(3) input[type="password"]')
+      .invoke('val')                               // Get the value of the password 
+      .then((vaultValue) => {                      
+        cy.log('Retrieved  Value:', vaultValue)    // Callback function 'cy.log' with par.'vaultValue'
+      })
+
+  }  
+
+  // Editing 'Vault value' 
+  editingVaultValue(namespace,vaultname,vaultkey,newvaultvalue){
+    
     // Find button Edit
-    cy.get('button[data-test-id="edit-vault-value-button"]')
+    //New
+    const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
+
+    cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
+      .contains('td:nth-child(4)', vaultUsageKey)  // in the fourth column
+      .parent()                                    // Navigate to the parent row
+      .find('button[data-test-id="edit-vault-value-button"]') //Searching for button 'Edit'
       .contains('Edit')
       .click()
+    //End
+    //Old  
+    //cy.get('button[data-test-id="edit-vault-value-button"]')
+    //  .contains('Edit')
+    //  .click()
 
-    // Typing New vault value      
-    cy.get('input[id="data-test-id-vault-value"][type="password"]')
+    //New
+    // Typing New vault value
+    cy.get('table tbody tr') 
+      .contains('td:nth-child(4)', vaultUsageKey)
+      .parent()
+      .find('input[id="data-test-id-vault-value"][type="password"]') //Searching for input field
       .clear()
       .type(newvaultvalue)
+    //End
+    //Old  
+    //cy.get('input[id="data-test-id-vault-value"][type="password"]')
+    //  .clear()
+    //  .type(newvaultvalue)
 
+    //New
     // Saving information
-    cy.get('button[data-test-id="vault-value-save-button"]')
+    cy.get('table tbody tr') 
+      .contains('td:nth-child(4)', vaultUsageKey)
+      .parent()
+      .find('button[data-test-id="vault-value-save-button"]') //Searching for 'Save' button
       .contains('Save')
       .click()
+    //End
+    //Old
+    //cy.get('button[data-test-id="vault-value-save-button"]')
+    //  .contains('Save')
+    //  .click()
 
     // Message about successful  Vault data record
     cy.contains('Vault value successfully saved')    
 
   }
-
-  // Deleting 'Vault value' by Vaultname1 and Vaultkey1
-  deletingVaultValue(vaultname,vaultkey){
-
-    cy.get('span[data-test-id="vaults-delete-vault-value-button"] button')
+  //New
+  // Deleting 'Vault value' 
+  deletingVaultValue(namespace,vaultname,vaultkey){
+    const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
+    cy.get('table tbody tr') 
+      .contains('td:nth-child(4)', vaultUsageKey)
+      .parent()
+      //Searching for 'Delete' button
+      .find('span[data-test-id="vaults-delete-vault-value-button"] button') 
       .contains('Delete')
-      .click();
+      .click()
+  //End
+  //Old
+  //  cy.get('span[data-test-id="vaults-delete-vault-value-button"] button')
+  //    .contains('Delete')
+  //    .click();
 
   }
 

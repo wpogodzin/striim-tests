@@ -52,7 +52,9 @@ To do later: 1.AssertUrl
     3.01.24 - t7 - scheme: - creating Vault name a
                            - creating Vault name b
                            - in b creating vault value 
-                           - other actions with vault value(RUD)
+                           - other actions with vault value(RUD) with wrong getting of elements
                            - deleting Vault names a,b
+
+    4.01.24 - t7 - scheme: - right getting of elements using vault usage
             
                         
