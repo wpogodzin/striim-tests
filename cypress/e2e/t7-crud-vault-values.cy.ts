@@ -6,7 +6,7 @@ import VaultsPage from '../pages/vaults-page'
 
 import { testData as tD, urlData as uD} from '../config/config-t7'
 
-describe('t7:3 namespaces, 5 vault values,CRUD', () => {
+describe('t7:2 namespaces, 4 vault values,CRUD', () => {
 
   // Declare variables outside beforeEach 
   let myLoginPage 
