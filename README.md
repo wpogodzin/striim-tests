@@ -56,5 +56,28 @@ To do later: 1.AssertUrl
                            - deleting Vault names a,b
 
     4.01.24 - t7 - scheme: - right getting of elements using vault usage
+            - vaults: - right getting of elements using vault usage as key
+
+    7.01.24 - t7(according to scenario);
+            - vault: all Bads - eliminated - left only 1 wait
+            - names amd values in config are simplified
+          Scenario(t7): 
+      
+      1. B_name : cr(2 values)     
+      2. C_name : cr(3 values)
+      3.   B_value1 : cr 
+      4.   B_value2 : cr
+      5.   C_value1 : cr
+      6.   C_value2 : cr
+      7.   B_value1 : ed B_value1new
+      8.   C_value1 : r
+      9.  B_value1new : r
+      10.  B_value2 : r
+      11.B_name : del          
+      12.  C_value2new : r
+      13.  C_value1 : r  
+      14.  C_value2new : del
+      15.C_name : del
+            
             
                         

@@ -1,6 +1,6 @@
 // LoginPage(Page Object Module) for testing developer.striim.com
 
-import { testData, urlData } from '../config/config';
+import { testData as tD, urlData  as uD} from '../config/config';
 
 class LoginPage {
   
@@ -19,11 +19,11 @@ class LoginPage {
   }
 
   visitLoginPage() {
-    cy.visit(urlData.urlInitial);
+    cy.visit(uD.urlInitial);
   }
 
   expectLoginForm() {
-    cy.get('.card-content', { timeout: testData.timeOutLoginForm})
+    cy.get('.card-content', { timeout: tD.timeOutLoginForm})
       .should('be.visible');
   }
 
@@ -40,8 +40,8 @@ class LoginPage {
   }
 
   setCorrectLoginAndPassword(){
-    cy.get('input[name="username"]').type(testData.correctUsername);
-    cy.get('input[name="password"]').type(testData.correctPassword);
+    cy.get('input[name="username"]').type(tD.correctUsername);
+    cy.get('input[name="password"]').type(tD.correctPassword);
   }
 
   clickLogin() {
@@ -49,7 +49,7 @@ class LoginPage {
   }
 
   checkLandingPageURL() {
-    cy.url().should('eq', urlData.urlLandingPage );
+    cy.url().should('eq', uD.urlLandingPage );
   }
 
   fillUsername(username) {
@@ -71,11 +71,11 @@ class LoginPage {
   }
 
   stillLoginPage() {
-    cy.url().should('eq', urlData.urlLoginPage )
+    cy.url().should('eq', uD.urlLoginPage )
   } 
 
   stillLoginPageHash() {
-    cy.url().should('eq', urlData.urlLoginPageHash)
+    cy.url().should('eq', uD.urlLoginPageHash)
   } 
 
   findLogoutButtonAndClick() {

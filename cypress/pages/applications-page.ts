@@ -1,6 +1,6 @@
 // ApplicationsPage(Page Object Module) for testing developer.striim.com
 
-import { testData, urlData } from '../config/config'
+import { testData as tD, urlData as uD} from '../config/config'
 
 class ApplicationsPage {
 
@@ -18,8 +18,8 @@ class ApplicationsPage {
     
     // Click on the dropdown menu button to open the menu
     clickRightElementOfNewAppForDropdownList(){
-    cy.get(`[data-test-id="apptile--${testData.correctUsername}.${testData.newAppName}"]`)
-      .find(`[data-test-id="${testData.correctUsername}-${testData.newAppName}-open-menu"]`)
+    cy.get(`[data-test-id="apptile--${tD.correctUsername}.${tD.newAppName}"]`)
+      .find(`[data-test-id="${tD.correctUsername}-${tD.newAppName}-open-menu"]`)
       .find('[data-testid="striim-dropdown-children"] button')
       .should('be.visible')
       .click(); 
@@ -29,7 +29,7 @@ class ApplicationsPage {
     chooseDropFromDropdownListAndClick(){
     cy.get('[data-testid="striim-dropdown-tooltip-content"]')
       // .scrollIntoView() // (Optional) Scroll into view if needed
-      .find(`ul[data-test-id="${testData.correctUsername}-${testData.newAppName}-menu"] li`)
+      .find(`ul[data-test-id="${tD.correctUsername}-${tD.newAppName}-menu"] li`)
       .eq(5)
       .contains('Drop')
       .should('exist') // is not visible

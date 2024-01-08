@@ -53,8 +53,21 @@ describe('t7:3 namespaces, 5 vault values,CRUD', () => {
 	    myVaultsPage.isVaultsPageUrl()
       // Welcome greeting if no vaults
       myVaultsPage.isGreetingAddYourFirstVaultVisible()
-     
-      // 1. B_name : cr(2 values)
+      //1E
+      //// Creating  Vault name A(empty - without Vault value)
+      // 1. A_name : cr(no values)
+      //myVaultsPage.clickButtonAddVaultIfNoVaults()                            
+      //myVaultsPage.enterVaultNameForStriimVaultType(tD.aName)
+      //myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.aName)
+      
+      // Desk 'Vaults' must appear
+      //myVaultsPage.isDeskVaultsVisible()
+      //
+      //// Creating  Vault name B( with 2 vault values)
+      // 2. B_name : cr(2 values)
+      
+      //myVaultsPage.clickButtonAddVaultToCreateNextVault() 
+      //1E
       myVaultsPage.clickButtonAddVaultIfNoVaults()  
       myVaultsPage.enterVaultNameForStriimVaultType(tD.bName) 
       myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.bName)
@@ -63,7 +76,7 @@ describe('t7:3 namespaces, 5 vault values,CRUD', () => {
       myVaultsPage.isDeskVaultsVisible()
 
       //// Creating  Vault name C( with 3 vault values)
-      // 2. C_name : cr(2 values)
+      // 4. C_name : cr(3 values)
       myVaultsPage.clickButtonAddVaultToCreateNextVault() 
       myVaultsPage.enterVaultNameForStriimVaultType(tD.cName)
       myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.cName)
@@ -74,49 +87,67 @@ describe('t7:3 namespaces, 5 vault values,CRUD', () => {
       // #3 Creating 'Vault value' means filling out all fields in Vaults table
       myVaultsPage.creatingVaultValue(tD.bName,tD.bKey1,tD.bValue1)
 
-      //// 4.   B_value2 : cr   Creating 2-nd Vault value of  Vault name B
-      // #4 Click 'Add vault value' button (right side) to start creating Vault value
+      //// 5.   B_value2 : cr   Creating 2-nd Vault value of  Vault name B
+      // #5 Click 'Add vault value' button (right side) to start creating Vault value
       myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.bName)
-      // #4 Creating 'Vault value' means filling out all fields in Vaults table
+      // #5 Creating 'Vault value' means filling out all fields in Vaults table
       myVaultsPage.creatingVaultValue(tD.bName,tD.bKey2,tD.bValue2) 
       
-      //// 5.   C_value1 : cr   Creating 1-st Vault value of  Vault name C
-      // #5 Click 'Add vault value' button (right side) to start creating Vault value
-      myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.cName)
-      // #5 Creating 'Vault value' means filling out all fields in Vaults table
-      myVaultsPage.creatingVaultValue(tD.cName,tD.cKey1,tD.cValue1)
-
-       //// 6.  C_value2 : cr   Creating 2-nd Vault value of  Vault name C
+      //// 6.   C_value1 : cr   Creating 1-st Vault value of  Vault name C
       // #6 Click 'Add vault value' button (right side) to start creating Vault value
       myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.cName)
       // #6 Creating 'Vault value' means filling out all fields in Vaults table
+      myVaultsPage.creatingVaultValue(tD.cName,tD.cKey1,tD.cValue1)
+
+       //// 7.  C_value2 : cr   Creating 2-nd Vault value of  Vault name C
+      // #7 Click 'Add vault value' button (right side) to start creating Vault value
+      myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.cName)
+      // #7 Creating 'Vault value' means filling out all fields in Vaults table
       myVaultsPage.creatingVaultValue(tD.cName,tD.cKey2,tD.cValue2)
 
-      // 7.   B_value1 : ed B_value1new
+      // 8.   B_value1 : ed B_value1new
       myVaultsPage.editingVaultValue(tD.correctUsername,tD.bName,tD.bKey1,tD.bValue1new)
 
-      // 8.  C_value1 : r
+       //// 9.  C_value3 : cr   Creating 3-d Vault value of Vault name C
+      // #9 Click 'Add vault value' button (right side) to start creating Vault value
+      //myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.cName)
+      // #9 Creating 'Vault value' means filling out all fields in Vaults table
+      //myVaultsPage.creatingVaultValue(tD.cName,tD.cKey3,tD.cValue3)
+      //2E
+      // 10.A_name : del
+      //myVaultsPage.deleteVault(tD.aName)
+      //2E
+      // 11.  C_value1 : r
       myVaultsPage.readingVaultValue(tD.correctUsername,tD.cName,tD.cKey1)
 
-      // 9.  B_value1new : r  
+      // 12.  B_value1new : r  
       myVaultsPage.readingVaultValue(tD.correctUsername,tD.bName,tD.bKey1)
 
-      // 10.  B_value2 : r
+      // 13.  C_value3 : del
+      //myVaultsPage.deletingVaultValue(tD.correctUsername,tD.cName,tD.cKey3)
+      
+      // 14.  B_value1new : del 
+      //myVaultsPage.deletingVaultValue(tD.correctUsername,tD.bName,tD.bKey1)
+
+      // 15.  C_value2 : ed C_value2new
+      //myVaultsPage.editingVaultValue(tD.correctUsername,tD.cName,tD.cKey2,tD.cValue2new)
+
+      // 16.  B_value2 : r
       myVaultsPage.readingVaultValue(tD.correctUsername,tD.bName,tD.bKey2)
       
-      // 11.B_name : del 
+      // 17.B_name : del 
       myVaultsPage.deleteVault(tD.bName)
 
-      // 12.  C_value2new : r 
+      // 18.  C_value2new : r 
       myVaultsPage.readingVaultValue(tD.correctUsername,tD.cName,tD.cKey2)
 
-      // 13.  C_value1 : r  
+      // 19.  C_value1 : r  
       myVaultsPage.readingVaultValue(tD.correctUsername,tD.cName,tD.cKey1)
 
-      // 14.  C_value2new : del
+      // 20.  C_value2new : del
       myVaultsPage.deletingVaultValue(tD.correctUsername,tD.cName,tD.cKey2)
 
-      // 15.C_name : del
+      // 21.C_name : del
        myVaultsPage.deleteVault(tD.cName)
 
       // Welcome greeting if no vaults

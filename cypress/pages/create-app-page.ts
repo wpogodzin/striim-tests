@@ -1,6 +1,6 @@
 // CreateAppPage(Page Object Module) for testing developer.striim.com
 
-import { testData, urlData } from '../config/config'
+import { testData as tD, urlData as uD} from '../config/config'
 
 class CreateAppPage {
 
@@ -8,7 +8,7 @@ class CreateAppPage {
 
   // Check URL for creating new app
   isCreateAppPageUrl() {    
-    cy.url().should('eq',urlData.urlCreateAppPage)
+    cy.url().should('eq',uD.urlCreateAppPage)
   }
 
   // Find element for creating from scratch and click
@@ -21,21 +21,21 @@ class CreateAppPage {
 
   // Check URL for page with giving name to new app
   isSlashNameAppPageUrl() {
-    cy.url().should('eq',urlData.urlSlashNameAppPage)
+    cy.url().should('eq',uD.urlSlashNameAppPage)
   }
 
   // Convince if Namespace has Username  
   hasNamespaceFieldCorrectUsername() {
     cy.get('[ data-test-id="autocomplete-select"]')
       .should('be.visible')
-      .should('have.text',testData.correctUsername)
+      .should('have.text',tD.correctUsername)
   }
 
   //Type name for new app
   typeNewAppName()  { 
     cy.get('input[name="name"]')
       .should('be.visible')
-      .type(testData.newAppName)
+      .type(tD.newAppName)
   }
 
   //Click button for submit new app

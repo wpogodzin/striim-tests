@@ -1,7 +1,7 @@
 // VaultsPage(Page Object Module) for testing developer.striim.com
-// 2 BAD
+// 3 BAD
 
-import { testData as tD, urlData as uD } from '../config/config-t7'
+import { testData, urlData } from '../config/config-t7-old'
 
 class VaultsPage {
 
@@ -10,7 +10,7 @@ class VaultsPage {
   //// Check that site was redirected to vaults page 
   isVaultsPageUrl() {
 
-    cy.url().should('eq', uD.urlVaultsPage )
+    cy.url().should('eq', urlData.urlVaultsPage )
 
   }
 
@@ -30,7 +30,7 @@ class VaultsPage {
       .should('be.visible').click()
 
   }
-  
+
   //// Filling out the table 'Add Vault'
   enterVaultNameForStriimVaultType(vaultname){
 
@@ -50,56 +50,57 @@ class VaultsPage {
           // By default STRIIMVAULT ?
           .to.have.attr('value', 'STRIIMDEFAULTVAULT')
       });
-      
     // Type Vault name
     cy.get('form').find('input[name="name"]').type(vaultname)
 
   }
 
-  //// Finishing Vault name creating
-  enterCorrectUsernameAndConfirmVaultnameCreating(vaultname){
+
+  enterCorrectUsernameAndConfirmVaultnameCreating(){
 
     // Set correct Username
     // 1.click button to get line with Username
     cy.get('form').find('button[type="button"]').click()
     // 2.click line with Username
-      .then(() =>(cy.get('div[id^="react-select-"][id$="-option-0"]')
-                  .contains(tD.correctUsername)
+    //!!!!!!!!!! - problem
+    .then(() =>(cy.get('div[class=" css-d7l1ni-option"]')///////// BAD1!!!!!!!!  //1.[id="react-select-2-option-0"] 2.<div class=" css-d7l1ni-option" aria-disabled="false" id="react-select-2-option-0" tabindex="-1">Vitaliy123</div>
+                  .contains(testData.correctUsername)
                   .should('be.visible')
                   .click()))
     // Click Confirm button 
     cy.get('button[type="button"][data-test-id="vaults-add-vault-confirm-button"]').click()
-    // Greeting
-    cy.contains('Vault saved successfully').should('be.visible')
+    // Text 'Success' must appear - Vault name is created
+    cy.contains('Vault saved successfully') //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!- make better
+    //cy.log([['Vitaliy123.Vaultname123.Vaultkey123']])
 
-    cy.wait(tD.timeOutVault) //BAD !!!!!!
-    
   }
 
-  //// Is there name 'Vaults' at the top of the table ?
+  //// Is there name 'Vaults' over the table 
   isDeskVaultsVisible(){
 
     cy.get('h2').contains('Vaults').should('be.visible')  
 
   }
-
-  //// Next Vault name(not first !!!)
+  // Next Vault name(not first !!!)
   clickButtonAddVaultToCreateNextVault(){
     cy.get('button[data-testid="striim-button"]')
       .contains('Add vault')
-      .should('be.visible')
-      .click()
+      .should('be.visible').click()
 
   }
   
-  //// Click Button to start filling out the table 'Vaults' 
+  //// Click Button to start illing out the table 'Vaults' 
   clickAddVaultValueButtonToStartCreatingVaultValue(vaultname){
 
-    cy.get(`div[data-test-id="collapsible-container-header"]:contains(${vaultname})\
-      button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")`)
-      .should('be.visible')
-      .click() 
-    
+    cy.wait(3000)  //i don't like this
+    /*cy.get('div[data-test-id="collapsible-container-header"] span[data-test-id="vault-value-collapsible-label"]:contains("B_name0")')
+      .parent('div')
+      .find('button[data-test-id="add-vault-link"]')//:contains("Add vault value")
+      .click();
+
+    //cy.get(`div[data-test-id="collapsible-container-header"] span[data-test-id="vault-value-collapsible-label"]:contains("${vaultname}")`)
+    //  .find('button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")').click()*/
+    cy.get('button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")').eq(1).click()  ///////// Bad2 !!!!!!!
   }
 
   //// Filling out the table 'Vaults'  
@@ -107,9 +108,7 @@ class VaultsPage {
    
     // Typing Vault key
     cy.get('input[id="data-test-id-vault-key"][type="text"]')
-      .should('be.visible')
       .type(vaultkey)
-
     // Choosing Vault value type
     // 1.click button to get line with String type
     cy.get('div[data-test-id="autocomplete-select"][id="data-test-id-vault-value-type"]')
@@ -118,45 +117,29 @@ class VaultsPage {
       .click()
         // 2.click line with Username
         .then(() => (
-          cy.get('div[id^="react-select-"][id$="-option-0"]')
+          cy.get('div[class=" css-d7l1ni-option"]')//[id="react-select-4-option-0"]   /////////// Bad3 !!!!!!!
           .contains('STRING')
           .should('be.visible')
           .click())
         )
-          .then(() =>
-            // Typing Vault value      
-            cy.get('input[id="data-test-id-vault-value"][type="password"]')
-              //.should('be.visible')
-              //.should('not.have.attr', 'disabled')
-              .type(vaultvalue)
-        )     
+    // Typing Vault value      
+    cy.get('input[id="data-test-id-vault-value"][type="password"]')
+      .type(vaultvalue)
     // Vault Usage
-    cy.get(`div[data-test-id="collapsible-container-header"]:contains(${vaultname})`)
-      .parent() 
-      .find('tbody td')
+    cy.get('tbody')
+      .find('td')
       .eq(3)
-      .should('have.text',`[[${tD.correctUsername}.${vaultname}.${vaultkey}]]`)
-
+      .should('have.text',`[[${testData.correctUsername}.${vaultname}.${vaultkey}]]`)      
     // Saving information
     cy.get('button[data-test-id="vault-value-save-button"]')
       .contains('Save')
       .click()
-
     // Message about successful  Vault data record
-    cy.contains('Vault value successfully saved').should('be.visible')
-
-    //cy.wait(3000) // BAD
-    // Find button Edit
-    cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
-      .contains('td:nth-child(4)', `[[${tD.correctUsername}.${vaultname}.${vaultkey}]]`)  // in the fourth column
-      .parent()                                    // Navigate to the parent row
-      .find('button[data-test-id="edit-vault-value-button"]') //Searching for button 'Edit'
-      .contains('Edit')
-      .should('be.visible',{timeout:tD.timeOutVault})
+    cy.contains('Vault value successfully saved') 
 
   }
   
-  //// Reading 'Vault value'
+  // Reading 'Vault value'
   readingVaultValue(namespace,vaultname,vaultkey){
 
     const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
@@ -164,27 +147,35 @@ class VaultsPage {
     cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
       .contains('td:nth-child(4)', vaultUsageKey)  // in the fourth column
       .parent()                                    // Navigate to the parent row
-      .find('input[type="password"]')
+      .find('input[id="data-test-id-vault-value"][type="password"]') 
+      // It's better than .find('td:nth-child(3) input[type="password"]')
       .invoke('val')                               // Get the value of the password 
       .then((vaultValue) => {                      
-        cy.log('Value: ', vaultValue)    // Callback function 'cy.log' with par.'vaultValue'
+        cy.log('Retrieved  Value:', vaultValue)    // Callback function 'cy.log' with par.'vaultValue'
       })
 
   }  
 
-  //// Editing 'Vault value' 
+  // Editing 'Vault value' 
   editingVaultValue(namespace,vaultname,vaultkey,newvaultvalue){
     
+    // Find button Edit
+    //New
     const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
 
-    // Find button Edit
     cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
       .contains('td:nth-child(4)', vaultUsageKey)  // in the fourth column
       .parent()                                    // Navigate to the parent row
       .find('button[data-test-id="edit-vault-value-button"]') //Searching for button 'Edit'
       .contains('Edit')
       .click()
+    //End
+    //Old  
+    //cy.get('button[data-test-id="edit-vault-value-button"]')
+    //  .contains('Edit')
+    //  .click()
 
+    //New
     // Typing New vault value
     cy.get('table tbody tr') 
       .contains('td:nth-child(4)', vaultUsageKey)
@@ -192,7 +183,13 @@ class VaultsPage {
       .find('input[id="data-test-id-vault-value"][type="password"]') //Searching for input field
       .clear()
       .type(newvaultvalue)
-    
+    //End
+    //Old  
+    //cy.get('input[id="data-test-id-vault-value"][type="password"]')
+    //  .clear()
+    //  .type(newvaultvalue)
+
+    //New
     // Saving information
     cy.get('table tbody tr') 
       .contains('td:nth-child(4)', vaultUsageKey)
@@ -200,17 +197,20 @@ class VaultsPage {
       .find('button[data-test-id="vault-value-save-button"]') //Searching for 'Save' button
       .contains('Save')
       .click()
-    
-      // Message about successful  Vault data record
-      cy.contains('Vault value successfully saved')    
+    //End
+    //Old
+    //cy.get('button[data-test-id="vault-value-save-button"]')
+    //  .contains('Save')
+    //  .click()
+
+    // Message about successful  Vault data record
+    cy.contains('Vault value successfully saved')    
 
   }
-  
-  //// Deleting 'Vault value' 
+  //New
+  // Deleting 'Vault value' 
   deletingVaultValue(namespace,vaultname,vaultkey){
-
     const vaultUsageKey = `[[${namespace}.${vaultname}.${vaultkey}]]`
-
     cy.get('table tbody tr') 
       .contains('td:nth-child(4)', vaultUsageKey)
       .parent()
@@ -218,10 +218,15 @@ class VaultsPage {
       .find('span[data-test-id="vaults-delete-vault-value-button"] button') 
       .contains('Delete')
       .click()
+  //End
+  //Old
+  //  cy.get('span[data-test-id="vaults-delete-vault-value-button"] button')
+  //    .contains('Delete')
+  //    .click();
 
   }
 
-  //// Deleting Vault(name)
+  //// Delete Vault(name)
   deleteVault(vaultname){
 
     // Find button (right side) for this Vault name to get features and click

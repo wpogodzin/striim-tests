@@ -1,6 +1,6 @@
 // FlowPage(Page Object Module) for testing developer.striim.com
 
-import { testData, urlData } from '../config/config';
+import { testData as tD, urlData as uD} from '../config/config';
 import NavigationBarMenu from '../pages/components/navigation-bar-menu'
 
 class FlowPage {
@@ -17,7 +17,7 @@ class FlowPage {
 
   //Check URL for work with new app :Url is OK, but picture is different
   isFlowPageUrl() {
-  cy.url().should('eq',urlData.urlFlowPage)
+  cy.url().should('eq',uD.urlFlowPage)
   }
 
   // Check for the success message after creating the application
