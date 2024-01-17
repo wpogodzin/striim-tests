@@ -1,4 +1,4 @@
-// t6-manage-striim-vaults.cy.ts - test initially
+// t7-crud-vault-values.cy - test initially
 
 import LoginPage from '../pages/login-page'
 import LandingPage from '../pages/landing-page'
@@ -53,7 +53,7 @@ describe('t7:2 namespaces, 4 vault values,CRUD', () => {
 	    myVaultsPage.isVaultsPageUrl()
       // Welcome greeting if no vaults
       myVaultsPage.isGreetingAddYourFirstVaultVisible()
-     
+
       // 1. B_name : cr(2 values)
       myVaultsPage.clickButtonAddVaultIfNoVaults()  
       myVaultsPage.enterVaultNameForStriimVaultType(tD.bName) 
@@ -62,7 +62,6 @@ describe('t7:2 namespaces, 4 vault values,CRUD', () => {
       // Desk 'Vaults' must appear
       myVaultsPage.isDeskVaultsVisible()
 
-      //// Creating  Vault name C( with 3 vault values)
       // 2. C_name : cr(2 values)
       myVaultsPage.clickButtonAddVaultToCreateNextVault() 
       myVaultsPage.enterVaultNameForStriimVaultType(tD.cName)
@@ -86,7 +85,7 @@ describe('t7:2 namespaces, 4 vault values,CRUD', () => {
       // #5 Creating 'Vault value' means filling out all fields in Vaults table
       myVaultsPage.creatingVaultValue(tD.cName,tD.cKey1,tD.cValue1)
 
-       //// 6.  C_value2 : cr   Creating 2-nd Vault value of  Vault name C
+      //// 6.  C_value2 : cr   Creating 2-nd Vault value of  Vault name C
       // #6 Click 'Add vault value' button (right side) to start creating Vault value
       myVaultsPage.clickAddVaultValueButtonToStartCreatingVaultValue(tD.cName)
       // #6 Creating 'Vault value' means filling out all fields in Vaults table

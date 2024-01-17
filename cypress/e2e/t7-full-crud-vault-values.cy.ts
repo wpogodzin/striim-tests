@@ -1,4 +1,4 @@
-// t6-manage-striim-vaults.cy.ts - test initially
+// t7-full-crud-vault-values.cy - test initially
 
 import LoginPage from '../pages/login-page'
 import LandingPage from '../pages/landing-page'

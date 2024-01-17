@@ -2,8 +2,17 @@
 // 2 BAD
 
 import { testData as tD, urlData as uD } from '../config/config-t7'
+import NavigationBarMenu from '../pages/components/navigation-bar-menu'
 
 class VaultsPage {
+  // Declare myNavigationBarMenu as a property of the class
+  //adding ': NavigationBarMenu' is better in the very beginning
+  myNavigationBarMenu: NavigationBarMenu 
+
+  // Constructor to make instance myMainMenu when LandingPage is created
+  constructor() {
+    this.myNavigationBarMenu = new NavigationBarMenu()
+  }  
 
   //// Vaults Page Methods
       

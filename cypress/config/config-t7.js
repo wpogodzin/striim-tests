@@ -56,7 +56,10 @@ const urlData = {
   `https://developer.striim.com/#flow/${testData.correctUsername}.${testData.newAppName}`,
 
   urlVaultsPage:
-  'https://developer.striim.com/#manage-striim/vaults'
+  'https://developer.striim.com/#manage-striim/vaults',
+
+  urlConsolePage:
+  'https://developer.striim.com/#console'
 
 }
 

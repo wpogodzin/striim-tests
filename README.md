@@ -60,7 +60,6 @@ To do later: 1.AssertUrl
 
     7.01.24 - t7(according to scenario);
             - vault: all Bads - eliminated - left only 1 wait
-            - names amd values in config are simplified
           Scenario(t7): 
       
       1. B_name : cr(2 values)     
@@ -78,6 +77,19 @@ To do later: 1.AssertUrl
       13.  C_value1 : r  
       14.  C_value2new : del
       15.C_name : del
+
+      17.01.24 t8,console-page.ts are added
+      
+      Scenario(t8): zero variant: aim to 'taste' console
+     
+      1. B_name : cr(1 value)
+      2. C_name : cr(no values)
+      3.   B_value1 : cr              
+      4.   B_value1 : r in Console
+      5. C_name : del
+      6.   B_value1 : del
+      7. B_name : del  
+
             
             
                         

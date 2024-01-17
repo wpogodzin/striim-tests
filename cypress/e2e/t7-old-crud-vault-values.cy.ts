@@ -1,4 +1,4 @@
-// t6-manage-striim-vaults.cy.ts - test initially
+// t7-old-crud-vault-values.cy - test initially
 
 import { testData, urlData } from '../config/config-t7-old'
 import LandingPage from '../pages/landing-page'
