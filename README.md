@@ -92,19 +92,17 @@ To do later: 1.AssertUrl
 
 24.01.24 Changes in scenario,t8,t9,console-page.ts,vaults-page.ts
 Scenario(t9):  first variant(middle):
-      // 1. B_name : cr(1 value)
-      // 2. C_name : cr(1 value)
-      // 2a.  C_value1 : cr                   using Console  
-      // 3.   B_value1 : cr
-      // 3a.  C_value1 : ed —> C_value1new              
-      // 4.   B_value1 : r                    using Console
-      //     Comparing read and input values
-      // 4a.  C_value1new : r                 using Console
-      //     Comparing read and edited values
-      // 4b.  C_value1new : del               using Console
-      // 5. C_name : del                  
-      // 6.   B_value1 : del
-      // 7. B_name : del                       
+       1. B_name : cr(1 value)
+       2. C_name : cr(1 value)
+       2a.  C_value1 : cr                   using Console  
+       3.   B_value1 : cr
+       3a.  C_value1 : ed —> C_value1new              
+       4.   B_value1 : r                    using Console
+       4a.  C_value1new : r                 using Console
+       4b.  C_value1new : del               using Console
+       5. C_name : del                  
+       6.   B_value1 : del
+       7. B_name : del                       
       (I added actions with literals(2a,3a...) comparing with zero scenario)
 t8(0 scenario): changing name of Console methods(cosmetic changes)       
 t9(1 scenario): adding methods according to new scenario 
