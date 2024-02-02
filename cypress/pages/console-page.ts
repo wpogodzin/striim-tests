@@ -9,111 +9,123 @@ class ConsolePage {
   // adding ': NavigationBarMenu' is better in the very beginning
   myNavigationBarMenu: NavigationBarMenu 
 
-  // Constructor to make instance myMainMenu when LandingPage is created
+  // Constructor to make instance myNavigationBarMenu when ConsolePage is created
   constructor() {
 
     this.myNavigationBarMenu = new NavigationBarMenu()
 
-  }  
+  }
 
-  ////// Methods //////
+  //// Private method of enter sql command (WRITE,READ,DELETE)
+  private enterCommand(command: string,vaultname: string, vaultkey: string, vaultvalue ='') {
+
+    cy.get('div[data-test-id="command-executor-enabled"] textarea')
+      .type(command) // vaultname, vaultkey and vaultvalue are in command as parameters
+    cy.get('button[data-testid="execute-command"]').should('have.text','Execute').click()
+
+  }
+
+  //// Private method of finding 'keyexpression' as indicator of sql command fulfillment
+  private doesCommandSucceed(command: string,vaultname: string, vaultkey: string, vaultvalue = '', keyexpression = '-- -> SUCCESS') {
+
+    // Method selects the container that holds all the Console lines
+    // P.S.: At first I just used  'cy.get('div')' and it worked but 
+    // it selected 96 'div's so to avoit this I used 'div.CodeMirror-code' though
+    // using the class is not recommended when selecting elements
+    // Command 'return' is neccessary for using result of private method 'doesCommandSucceed'
+    // in method 'readVaultValueFromConsoleDeskAndCompare'(there was problem with using '.then')  
+    return(
+      cy.get('div.CodeMirror-code') //choosenelement - result of command chain
+      // Chooses 'pre' having relevant text       
+      .contains('pre',`-- Processing - ${command}`)
+      // Gets all subsequent 'pre' elements 
+      .nextAll('pre')
+      // Finds element 'pre' with text ('-- -> SUCCESS' or 'Value:'
+      // This assumes that the '-- -> SUCCESS'/'Value:' line always follows
+      // the '-- Processing' line for each vault command.
+      .contains(keyexpression)
+      .should('be.visible')
+    )  
+  
+  }    
+  
+  ////// Public methods //////
 
   isConsolePageUrl() {
 
     cy.url().should('eq', uD.urlConsolePage)
 
   }
-  //// Should read Vault value 
-  //// using Vault name and Vault key(SQL - READ ) 
-  enterCommandReadUsingNameAndKey(vaultname, vaultkey) {
+  //// Should enter sql READ command 
+  enterCommandReadUsingNameAndKey(vaultname: string, vaultkey: string) {
 
-    cy.get('div[data-test-id="command-executor-enabled"] textarea')
-      .type(`READ FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`)
-    cy.get('button[data-testid="execute-command"]').should('have.text','Execute').click()
+    let commandread = `READ FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`
+    this.enterCommand(commandread,vaultname, vaultkey);
 
   }
 
-     //// Should retrieve and assert the meaning of "Value"  
-     readVaultValueFromConsoleDeskAndCompare(vaultname, vaultkey, vaultvalue) {
+  ////   Is thete keyword 'SUCCESS' after command READ in Console?
+  doesCommandReadSucceed(vaultname: string, vaultkey: string) {
+     
+    let commandread = `READ FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`
+    // sql command is used in message without ';'
+    commandread = commandread.slice(0, -1)
+    this.doesCommandSucceed(commandread, vaultname, vaultkey);
+      
+  }    
 
-       // Selects the container that holds all the Console lines
-       // P.S.: At first I used simply 'cy.get('div')' and it worked and 
-       // selected 96 'div' so then I used 'div.CodeMirror-code' although
-       // using class is not welcome when choosing elements
-       cy.get('div.CodeMirror-code')
-          // Chooses 'pre' having relevant text
-          .contains('pre',`-- Processing - READ FROM ${vaultname} WHERE vaultKey = "${vaultkey}"`)
-          // Gets all subsequent 'pre' elements 
-          .nextAll('pre')
-          // Finds element 'pre' with text 'Value:'
-          // This assumes that the 'Value:' line always follows
-          // the 'Processing' line for each vault command.
-          .contains('Value:')
-          // Calls yielded 'pre' element as '$yieldedPre'
-          .then($yieldedPre => {
-            // Extracts text from variable '$yieldedPre'
-            const valueText = $yieldedPre.text();
-            // Extracts value using index and erazes whitespaces('trim()') 
-            const value = valueText.split(': ')[1].trim();
-            // Compares final value with assigned before
-            cy.wrap(value).should('eq', vaultvalue);
-          });
+  //// Should retrieve and assert the meaning of "Value"(comparing with initial data)  
+  readVaultValueFromConsoleDeskAndCompare(vaultname: string, vaultkey: string, vaultvalue: string) {
 
-      }
-  
-  //// Should create(or edit) Vault value 
-  //// using Vault name and Vault key(SQL - WRITE) 
-  enterCommandWriteValueUsingNameAndKey(vaultname, vaultkey, vaultvalue){
+  let keyexpression: string
+  let commandread = `READ FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`
+  commandread = commandread.slice(0, -1)
 
-    cy.get('div[data-test-id="command-executor-enabled"] textarea')
-      .type(`WRITE INTO ${vaultname} ( vaultKey: "${vaultkey}", vaultValue: "${vaultvalue}");`)
-    cy.get('button[data-testid="execute-command"]').should('have.text','Execute').click()
+  this.doesCommandSucceed(commandread, vaultname, vaultkey, vaultvalue, keyexpression = 'Value:')  
+    // Calls yielded 'pre' element as '$yieldedPre'
+    .then($yieldedPre => {
+      // Extracts text from variable '$yieldedPre'
+      const valueText = $yieldedPre.text();
+      // Extracts value using index and erazes whitespaces('trim()') 
+      const value = valueText.split(': ')[1].trim();
+      // Compares final value with assigned before
+      cy.wrap(value).should('eq', vaultvalue);
+    });
 
   }
 
-  ////  Does the keyword 'SUCCESS' is in Console?
-  doesCommandWriteSucceed(vaultname, vaultkey, vaultvalue) {
-    // Selects the container that holds all the console lines
-    cy.get('div.CodeMirror-code')
-      // Chooses 'pre' having relevant text
-      .contains('pre',`-- Processing - WRITE INTO ${vaultname} ( vaultKey: "${vaultkey}", vaultValue: "${vaultvalue}"`)
-      // Gets all subsequent 'pre' elements 
-      .nextAll('pre')
-      // Finds element 'pre' with text '-- -> SUCCESS'
-      // This assumes that the '-- -> SUCCESS' line always follows
-      // the 'Processing' line for each vault command.
-      .contains('-- -> SUCCESS')
-      .should('be.visible') 
+  //// Should enter sql WRITE command
+  enterCommandWriteValueUsingNameAndKey(vaultname: string, vaultkey: string, vaultvalue: string){
+
+    let commandwrite = `WRITE INTO ${vaultname} ( vaultKey: "${vaultkey}", vaultValue: "${vaultvalue}");`
+    this.enterCommand(commandwrite, vaultname, vaultkey, vaultvalue);
+
+  }
+
+  ////   Is thete keyword 'SUCCESS' after command WRITE in Console?
+  doesCommandWriteSucceed(vaultname: string, vaultkey: string, vaultvalue: string) {
+
+    let commandwrite = `WRITE INTO ${vaultname} ( vaultKey: "${vaultkey}", vaultValue: "${vaultvalue}");`
+    commandwrite = commandwrite.slice(0, -1)
+    this.doesCommandSucceed(commandwrite, vaultname, vaultkey, vaultvalue);
   
   }    
 
-  //// Should delete Vault value 
-  //// using Vault name and Vault key(SQL - DELETE) 
-  entercommandDeleteValueUsingNameAndKey(vaultname, vaultkey){
+  //// Should enter sql DELETE command
+  enterCommandDeleteValueUsingNameAndKey(vaultname: string, vaultkey: string){
 
-    // Gets
-    cy.get('div[data-test-id="command-executor-enabled"] textarea')
-      // Types
-      .type(`DELETE FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`)
-    // Clicks button
-    cy.get('button[data-testid="execute-command"]').should('have.text','Execute').click()
+    let commanddelete = `DELETE FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`
+    this.enterCommand(commanddelete, vaultname, vaultkey)
 
   }
 
-  ////  Does the keyword 'SUCCESS' is in Console?
-  doesCommandDeleteSucceed(vaultname, vaultkey) {
-
-    // Selects the container that holds all the console lines
-    cy.get('div.CodeMirror-code')
-      // Chooses 'pre' having relevant text
-      .contains('pre',`-- Processing - DELETE FROM ${vaultname} WHERE vaultKey = "${vaultkey}"`)
-      // Gets all subsequent 'pre' elements 
-      .nextAll('pre')
-      // Finds element 'pre' with text '-- -> SUCCESS'
-      // This assumes that the '-- -> SUCCESS' line always follows
-      // the 'Processing' line for each vault command.
-      .contains('-- -> SUCCESS')
-      .should('be.visible')  
+  ////  Is thete keyword 'SUCCESS' after command DELETE in Console?
+  doesCommandDeleteSucceed(vaultname: string, vaultkey: string) {
+     
+    let commanddelete = `DELETE FROM ${vaultname} WHERE vaultKey = "${vaultkey}";`
+    commanddelete = commanddelete.slice(0, -1)
+    this.doesCommandSucceed(commanddelete, vaultname, vaultkey);
+      
   }    
 
 }
