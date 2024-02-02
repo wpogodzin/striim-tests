@@ -76,7 +76,7 @@ describe('CRUD Vault values using Table and Console - middle test', () => {
       // 1.B_name : cr(1 value)
       myVaultsPage.clickButtonAddVaultIfNoVaults()  
       myVaultsPage.enterVaultNameForStriimVaultType(tD.bName) // StriimVaultType by default
-      myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.bName) // tD.bName - ?
+      myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.bName)  
 
       // Desk 'Vaults' must appear
       myVaultsPage.isDeskVaultsVisible()
@@ -84,7 +84,7 @@ describe('CRUD Vault values using Table and Console - middle test', () => {
       // 2.C_name : cr(1 value) 
       myVaultsPage.clickButtonAddVaultToCreateNextVault() 
       myVaultsPage.enterVaultNameForStriimVaultType(tD.cName)
-      myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.cName) // tD.cName - ? 
+      myVaultsPage.enterCorrectUsernameAndConfirmVaultnameCreating(tD.cName)  
       
       // Redirecting to page Console
       myVaultsPage.myNavigationBarMenu.clickBarItem("Console")
@@ -122,14 +122,16 @@ describe('CRUD Vault values using Table and Console - middle test', () => {
 
       // 4.  B_value1 : r    using Console 
       myConsolePage.enterCommandReadUsingNameAndKey(tD.bName, tD.bKey1)
-      myConsolePage.readVaultValueFromConsoleDeskAndCompare(tD.bName, tD.bKey1, tD.bValue1)    // to split on 2 ?
+      myConsolePage.doesCommandReadSucceed(tD.bName, tD.bKey1)
+      myConsolePage.readVaultValueFromConsoleDeskAndCompare(tD.bName, tD.bKey1, tD.bValue1)    
 
       // 4a.  C_value1new : r   using Console
       myConsolePage.enterCommandReadUsingNameAndKey(tD.cName, tD.cKey1)
-      myConsolePage.readVaultValueFromConsoleDeskAndCompare(tD.cName, tD.cKey1, tD.cValue1new) // to split on 2 ?
+      myConsolePage.doesCommandReadSucceed(tD.cName, tD.cKey1)
+      myConsolePage.readVaultValueFromConsoleDeskAndCompare(tD.cName, tD.cKey1, tD.cValue1new) 
 
       // 4b.  C_value1new : del using Console
-      myConsolePage.entercommandDeleteValueUsingNameAndKey(tD.cName,tD.cKey1)
+      myConsolePage.enterCommandDeleteValueUsingNameAndKey(tD.cName,tD.cKey1)
       myConsolePage.doesCommandDeleteSucceed(tD.cName, tD.cKey1)
 
       // Search for Vaults in Manage Striim(Navigation Bar Menu) and click

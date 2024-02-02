@@ -118,9 +118,19 @@ console-page.ts: new or corrected methods:
   - clickAddVaultValueButtonToStartCreatingVaultValue add '.wait(3000)', because    test didn't load element in time ,so next command 'click' didn't succeed
 
     My task : 1.readVaultValueFromConsoleDeskAndCompare, doesCommandWriteSucceed, doesCommandDeleteSucceed has common thing so we can using private method to simplify
-    2. enterCommandWriteValueUsingNameAndKey, entercommandDeleteValueUsingNameAndKey - the same
+    2. enterCommandReadUsingNameAndKey,enterCommandWriteValueUsingNameAndKey, entercommandDeleteValueUsingNameAndKey - the same
     3.to make big scenario with 3 Vaultname
 
-            
-            
-                        
+29.01.24 Changes in t9(small),console-page.ts (my task :1,2 by 24.01.24)
+t9:              the same scenario,changes are caused by 
+                 using new and corrected methods(see below)
+console-page.ts: new or corrected methods:
+                 - enterCommandReadUsingNameAndKey, 
+                   enterCommandWriteValueUsingNameAndKey, 
+                   enterCommandDeleteValueUsingNameAndKey
+                   are based on private method 'enterCommand'(new)
+                 - doesCommandReadSucceed
+                   readVaultValueFromConsoleDeskAndCompare
+                   doesCommandWriteSucceed
+                   doesCommandDeleteSucceed     
+                   are based on private method 'doesCommandSucceed'(new)
