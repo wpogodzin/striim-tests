@@ -88,7 +88,38 @@ To do later: 1.AssertUrl
       4.   B_value1 : r in Console
       5. C_name : del
       6.   B_value1 : del
-      7. B_name : del  
+      7. B_name : del
+
+24.01.24 Changes in scenario,t8,t9,console-page.ts,vaults-page.ts
+Scenario(t9):  first variant(middle):
+      // 1. B_name : cr(1 value)
+      // 2. C_name : cr(1 value)
+      // 2a.  C_value1 : cr                   using Console  
+      // 3.   B_value1 : cr
+      // 3a.  C_value1 : ed —> C_value1new              
+      // 4.   B_value1 : r                    using Console
+      //     Comparing read and input values
+      // 4a.  C_value1new : r                 using Console
+      //     Comparing read and edited values
+      // 4b.  C_value1new : del               using Console
+      // 5. C_name : del                  
+      // 6.   B_value1 : del
+      // 7. B_name : del                       
+      (I added actions with literals(2a,3a...) comparing with zero scenario)
+t8(0 scenario): changing name of Console methods(cosmetic changes)       
+t9(1 scenario): adding methods according to new scenario 
+console-page.ts: new or corrected methods:
+  - readVaultValueFromConsoleDeskAndCompare: more accurate reading of vaultValue
+  - enterCommandWriteValueUsingNameAndKey: new
+  - doesCommandWriteSucceed: new     
+  - entercommandDeleteValueUsingNameAndKey: new
+  - doesCommandDeleteSucceed: new
+  vaults-page.ts: 
+  - clickAddVaultValueButtonToStartCreatingVaultValue add '.wait(3000)', because    test didn't load element in time ,so next command 'click' didn't succeed
+
+    My task : 1.readVaultValueFromConsoleDeskAndCompare, doesCommandWriteSucceed, doesCommandDeleteSucceed has common thing so we can using private method to simplify
+    2. enterCommandWriteValueUsingNameAndKey, entercommandDeleteValueUsingNameAndKey - the same
+    3.to make big scenario with 3 Vaultname
 
             
             

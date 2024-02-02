@@ -107,8 +107,9 @@ class VaultsPage {
     cy.get(`div[data-test-id="collapsible-container-header"]:contains(${vaultname})\
       button[type="button"][data-test-id="add-vault-link"]:contains("Add vault value")`)
       .should('be.visible')
+      .wait(3000)
       .click() 
-    
+      
   }
 
   //// Filling out the table 'Vaults'  
@@ -154,7 +155,6 @@ class VaultsPage {
     // Message about successful  Vault data record
     cy.contains('Vault value successfully saved').should('be.visible')
 
-    //cy.wait(3000) // BAD
     // Find button Edit
     cy.get('table tbody tr')                       // Find the row with the specified Vault Usage key 
       .contains('td:nth-child(4)', `[[${tD.correctUsername}.${vaultname}.${vaultkey}]]`)  // in the fourth column

@@ -50,6 +50,14 @@ describe('t8 - creating Vault value in table Vaults and reading this Vault value
 
     it('6 steps of work with Vaults + 1 step using Console', () => {
 
+      //Scenario(t8): zero variant: aim to 'taste' console 
+      //1. B_name : cr(1 value)
+      //2. C_name : cr(no values)
+      //3.   B_value1 : cr              
+      //4.   B_value1 : r in Console
+      //5. C_name : del
+      //6.   B_value1 : del
+      //7. B_name : del
     
       // Search for Vaults in Manage Striim(Navigation Bar Menu) and click
       myLandingPage.myNavigationBarMenu.clickMenuItem("Manage Striim", "Vaults") 
@@ -88,9 +96,9 @@ describe('t8 - creating Vault value in table Vaults and reading this Vault value
 	    myConsolePage.isConsolePageUrl()
 
       // 4.  B_value1 : r  
-      myConsolePage.typeReadValueUsingNameAndKey(tD.bName, tD.bKey1)
+      myConsolePage.enterCommandReadUsingNameAndKey(tD.bName, tD.bKey1)
 
-      myConsolePage.readVaultValueFromConsoleDesk(tD.bValue1) 
+      myConsolePage.readVaultValueFromConsoleDeskAndCompare(tD.bName, tD.bKey1, tD.bValue1) 
 
       // Search for Vaults in Manage Striim(Navigation Bar Menu) and click
       myConsolePage.myNavigationBarMenu.clickMenuItem("Manage Striim", "Vaults")
@@ -114,7 +122,6 @@ describe('t8 - creating Vault value in table Vaults and reading this Vault value
     })
     
 })
-
 
 
 
